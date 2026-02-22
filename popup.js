@@ -1,5 +1,5 @@
 const STORAGE_KEY_TOTAL = "total";
-const WATER_PER_PROMPT_ML = 50;
+const WATER_PER_PROMPT_ML = 25;
 
 const FRAME_SOURCES = [
   "frames/frame1.png",
@@ -21,15 +21,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   dom = {
     totalPrompts: document.getElementById("totalPrompts"),
     totalWater: document.getElementById("totalWater"),
-    resetBtn: document.getElementById("resetBtn"),
     snarkLine: document.getElementById("snarkLine"),
     spriteStage: document.getElementById("spriteStage")
   };
 
   await initializeSpriteAnimation();
   await refreshPopup();
-
-  dom.resetBtn.addEventListener("click", handleReset);
 
   chrome.storage.onChanged.addListener((changes, areaName) => {
     if (areaName !== "local" || !changes[STORAGE_KEY_TOTAL]) {
@@ -49,12 +46,6 @@ function getLocalStorage(keys) {
   });
 }
 
-function setLocalStorage(value) {
-  return new Promise((resolve) => {
-    chrome.storage.local.set(value, () => resolve());
-  });
-}
-
 async function refreshPopup() {
   const storage = await getLocalStorage([STORAGE_KEY_TOTAL]);
   const totalPrompts = storage[STORAGE_KEY_TOTAL] || 0;
@@ -67,11 +58,6 @@ function renderTotals(totalPrompts) {
   dom.totalPrompts.textContent = numberFormatter.format(totalPrompts);
   dom.totalWater.textContent = formatWater(totalWaterML);
   dom.snarkLine.textContent = pickSnarkLine(totalWaterML);
-}
-
-async function handleReset() {
-  await setLocalStorage({ [STORAGE_KEY_TOTAL]: 0 });
-  renderTotals(0);
 }
 
 function formatWater(totalWaterML) {
