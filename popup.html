@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt Footprint</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="popup-shell">
+    <header class="popup-header">
+      <p class="eyebrow">Prompt Footprint</p>
+      <h1>ChatGPT footprint usage</h1>
+      <p class="subtext">Local-only counts. No prompt text is stored.</p>
+    </header>
+
+    <section class="stats-grid" aria-label="Usage totals">
+      <div class="stat-card">
+        <p class="stat-label">Total prompts</p>
+        <p id="totalPrompts" class="stat-value">0</p>
+      </div>
+
+      <div class="stat-card">
+        <p class="stat-label">Estimated water evaporated</p>
+        <p id="totalWater" class="stat-value">0 mL</p>
+      </div>
+    </section>
+
+    <div class="action-row">
+      <button id="resetBtn" class="reset-btn" type="button">Reset counter</button>
+    </div>
+
+    <footer class="footer-animation" aria-label="Animation and status message">
+      <div id="spriteStage" class="sprite-stage is-empty" aria-hidden="true">
+        <span class="sprite-placeholder">Add `frames/frame1-4.png`</span>
+      </div>
+      <p id="snarkLine" class="snark-line" aria-live="polite">
+        Calculating your hydration contribution...
+      </p>
+    </footer>
+  </main>
+
+  <script src="popup.js" defer></script>
+</body>
+</html>
